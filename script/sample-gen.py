@@ -8,7 +8,8 @@ random.seed(2018)
 
 string_set = Set()
 
-while len(string_set) < 1000000:
+total_num = 1000
+while len(string_set) < total_num:
     i = 0
     s = ""
     while i < 6:
@@ -19,11 +20,14 @@ while len(string_set) < 1000000:
         s += string.lowercase[n]
     string_set.add(s)
 
-f = open("training.txt","w")
-f.write("topology: 6 10 1\n")
-r = 0
-for s in sorted(string_set):
-    f.write("in: " + s + "\nout: " + str(r) + "\n")
-    r = r + 1
+f = open("testing.txt","w")
+pair_list = zip(sorted(string_set), range(total_num))
+for p in pair_list:
+    f.write("in: " + p[0] + "\nout: " + str(p[1]) + "\n")
+f.close()
 
+random.shuffle(pair_list)
+f = open("training.txt","w")
+for p in pair_list:
+    f.write("in: " + p[0] + "\nout: " + str(p[1]) + "\n")
 f.close()
