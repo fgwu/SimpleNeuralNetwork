@@ -5,6 +5,7 @@
 #include <cmath>
 #include <fstream>
 #include <sstream>
+#include <stdio.h>
 
 #include "global.h"
 #include "neuron.h"
@@ -19,7 +20,7 @@ void Neuron::updateInputWeights(Layer &prevLayer)
 {
   // The weights to be updated are in the Connection container
   // in the nuerons in the preceding layer
-
+  cout << "delta: ";
   for(unsigned n = 0; n < prevLayer.size(); ++n)
   {
     Neuron &neuron = prevLayer[n];
@@ -34,8 +35,13 @@ void Neuron::updateInputWeights(Layer &prevLayer)
       + alpha
       * oldDeltaWeight;
     neuron.m_outputWeights[m_myIndex].deltaWeight = newDeltaWeight;
+    printf("[%4.1lf %4.1lf %4.1lf+=%4.1lf]",
+           neuron.getOutputVal(),
+           m_gradient,
+           neuron.m_outputWeights[m_myIndex].weight, newDeltaWeight);
     neuron.m_outputWeights[m_myIndex].weight += newDeltaWeight;
   }
+  cout << "\n\n";
 }
 double Neuron::sumDOW(const Layer &nextLayer) const
 {
@@ -65,13 +71,16 @@ void Neuron::calcOutputGradients(double targetVals)
 double Neuron::transferFunction(double x)
 {
   // tanh - output range [-1.0..1.0]
-  return tanh(x);
+//  return tanh(x);
+  return x > 0 ? x : 0.01 * x;
+  //* (x > 0);
 }
 
 double Neuron::transferFunctionDerivative(double x)
 {
   // tanh derivative
-  return 1.0 - x * x;
+//  return 1.0 - x * x;
+  return x > 0 ? 1 : 0.01;
 }
 
 
@@ -90,6 +99,8 @@ void Neuron::feedForward(const Layer &prevLayer)
   }
 
   m_outputVal = Neuron::transferFunction(sum);
+  printf("%8.2lf", m_outputVal);
+//  cout << m_outputVal << " ";
 }
 
 Neuron::Neuron(unsigned numOutputs, unsigned myIndex)

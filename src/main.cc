@@ -59,9 +59,9 @@ int main()
 
   vector<double> inputVals, targetVals, resultVals;
 
-  for (int i = 0; i < 1; i++) {
-    cout << i << "\n";
-    while(!trainData.isEof())
+  for (int i = 0; i < 10; i++) {
+    cout << "-----" << i << "-----\n";
+    for (int j = 0; j < trainData.lines; j++)
     {
       // Get new input data and feed it forward:
       if(trainData.getNextInputs(inputVals) != topology[0])
@@ -90,7 +90,8 @@ int main()
   TrainingData testData("../script/testing.txt");
   int testSamples = 0;
   double accu_err = 0;
-  while(!testData.isEof())
+
+  for (int i = 0; i < testData.lines; i++)
   {
     ++testSamples;
     cout << endl << "test sample" << testSamples << "\n";

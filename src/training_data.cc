@@ -5,10 +5,18 @@
 #include <cmath>
 #include <fstream>
 #include <sstream>
+#include <string>
 
 #include "training_data.h"
 
 using namespace std;
+
+void TrainingData::SeekToBegin() {
+  m_trainingDataFile.seekg(0, m_trainingDataFile.beg);
+  string line;
+  getline(m_trainingDataFile, line);
+  lines = stoi(line);
+}
 
 void TrainingData::getTopology(vector<unsigned> &topology)
 {
@@ -35,6 +43,7 @@ void TrainingData::getTopology(vector<unsigned> &topology)
 TrainingData::TrainingData(const string filename)
 {
   m_trainingDataFile.open(filename.c_str());
+  SeekToBegin();
 }
 
 
@@ -73,7 +82,7 @@ unsigned TrainingData::getTargetOutputs(vector<double> &targetOutputVals)
   if (label.compare("out:") == 0) {
     double oneValue;
     while (ss >> oneValue) {
-      targetOutputVals.push_back(oneValue / 10.0);
+      targetOutputVals.push_back((double)oneValue / (double)lines);
     }
   }
 

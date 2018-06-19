@@ -8,6 +8,7 @@
 #include <cmath>
 #include <fstream>
 #include <sstream>
+#include <string>
 
 using namespace std;
 
@@ -16,7 +17,7 @@ class TrainingData
   public:
   TrainingData(const string filename);
   bool isEof(void) { return m_trainingDataFile.eof(); }
-  void SeekToBegin() { m_trainingDataFile.seekg(0, m_trainingDataFile.beg); }
+  void SeekToBegin();
 
   void getTopology(vector<unsigned> &topology);
 
@@ -24,7 +25,10 @@ class TrainingData
   unsigned getNextInputs(vector<double> &inputVals);
   unsigned getTargetOutputs(vector<double> &targetOutputVals);
 
+  long lines;
+
   private:
+
   ifstream m_trainingDataFile;
 };
 
