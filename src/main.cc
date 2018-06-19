@@ -52,14 +52,15 @@ int main()
   //e.g., {3, 2, 1 }
   vector<unsigned> topology;
   topology.push_back(6);
-  topology.push_back(10);
+//  topology.push_back(10);
+  topology.push_back(20);
   topology.push_back(1);
 
   Net myNet(topology);
 
   vector<double> inputVals, targetVals, resultVals;
 
-  for (int i = 0; i < 10; i++) {
+  for (int i = 0; i < 3; i++) {
     cout << "-----" << i << "-----\n";
     for (int j = 0; j < trainData.lines; j++)
     {
@@ -99,7 +100,7 @@ int main()
     // Get new input data and feed it forward:
     if(testData.getNextInputs(inputVals) != topology[0])
       break;
-    showInputVectorVals(": Inputs :", inputVals);
+    showInputVectorVals("Inputs :", inputVals);
     myNet.feedForward(inputVals);
 
     // Collect the net's actual results:

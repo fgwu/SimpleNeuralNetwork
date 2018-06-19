@@ -88,23 +88,23 @@ void Net::feedForward(const vector<double> &inputVals)
   assert(inputVals.size() == m_layers[0].size() - 1);
 
   // Assign {latch} the input values into the input neurons
-  cout << "layerNum = " << 0 << ":";
+  // cout << "layerNum = " << 0 << ":";
   for(unsigned i = 0; i < inputVals.size(); ++i){
     m_layers[0][i].setOutputVal(inputVals[i]);
-    printf("%8.2lf", inputVals[i]);
+    // printf("%8.2lf", inputVals[i]);
   }
-  cout << "\n";
+  // cout << "\n";
 
   // Forward propagate
   for(unsigned layerNum = 1; layerNum < m_layers.size(); ++layerNum){
     Layer &prevLayer = m_layers[layerNum - 1];
-    cout << "layerNum = " << layerNum << ":";
+    // cout << "layerNum = " << layerNum << ":";
     for(unsigned n = 0; n < m_layers[layerNum].size() - 1; ++n){
       m_layers[layerNum][n].feedForward(prevLayer);
     }
-    cout << "\n";
+    // cout << "\n";
   }
-  cout << "\n";
+  // cout << "\n";
 }
 Net::Net(const vector<unsigned> &topology)
 {

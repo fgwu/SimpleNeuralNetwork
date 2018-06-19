@@ -20,7 +20,7 @@ void Neuron::updateInputWeights(Layer &prevLayer)
 {
   // The weights to be updated are in the Connection container
   // in the nuerons in the preceding layer
-  cout << "delta: ";
+//  cout << "delta: ";
   for(unsigned n = 0; n < prevLayer.size(); ++n)
   {
     Neuron &neuron = prevLayer[n];
@@ -35,13 +35,13 @@ void Neuron::updateInputWeights(Layer &prevLayer)
       + alpha
       * oldDeltaWeight;
     neuron.m_outputWeights[m_myIndex].deltaWeight = newDeltaWeight;
-    printf("[%4.1lf %4.1lf %4.1lf+=%4.1lf]",
-           neuron.getOutputVal(),
-           m_gradient,
-           neuron.m_outputWeights[m_myIndex].weight, newDeltaWeight);
+    // printf("[%4.1lf %4.1lf %4.1lf+=%4.1lf]",
+    //        neuron.getOutputVal(),
+    //        m_gradient,
+    //        neuron.m_outputWeights[m_myIndex].weight, newDeltaWeight);
     neuron.m_outputWeights[m_myIndex].weight += newDeltaWeight;
   }
-  cout << "\n\n";
+  // cout << "\n\n";
 }
 double Neuron::sumDOW(const Layer &nextLayer) const
 {
@@ -99,7 +99,7 @@ void Neuron::feedForward(const Layer &prevLayer)
   }
 
   m_outputVal = Neuron::transferFunction(sum);
-  printf("%8.2lf", m_outputVal);
+  // printf("%8.2lf", m_outputVal);
 //  cout << m_outputVal << " ";
 }
 
